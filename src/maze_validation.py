@@ -1,37 +1,37 @@
 import json
 import os
 
-
 class MazeValidator:
     def __init__(self, file_path):
-        self.file_path = file_path # 
+        self.file_path = file_path # json file path (where the maze is stored)
         self.maze = []
         self.rows = 0
         self.cols = 0
 
     def load_maze(self):
-        """Loads the JSON file and parses the maze matrix[cite: 14]."""
+        """0) Loads the JSON file and parses the maze matrix."""
         if not os.path.exists(self.file_path):
             raise FileNotFoundError(f"Error: {self.file_path} not found.")
         
         with open(self.file_path, 'r') as f:
             data = json.load(f)
-            self.maze = data.get("maze", [])
+            self.maze = data.get("maze", []) # load maze from JSON
             
         if not self.maze:
             raise ValueError("Error: Maze is empty or format is invalid.")
         
         self.rows = len(self.maze)
-        self.cols = len(self.maze[0])
+        self.cols = len(self.maze[0]) # columns based on first row
 
     def column_check(self):
-        """1) All rows must have the same number of columns[cite: 31]."""
-        for i, row in enumerate(self.maze):
+        """1) Rows must have the same number of columns."""
+        for i in range(len(self.maze)):
+            row = self.maze[i]
             if len(row) != self.cols:
-                raise ValueError(f"Error: Row {i} has {len(row)} columns, expected {self.cols}[cite: 31].")
+                raise ValueError(f"Error: Row {i} has {len(row)} columns, expected {self.cols}.")
 
     def boundaries_check(self):
-        """2) Perimeter must only contain walls (X), start (S), or end (E)[cite: 40]."""
+        """2) Perimeter must only contain walls (X), start (S), or end (E)."""
         allowed = {'X', 'S', 'E'}
         for r in range(self.rows):
             for c in range(self.cols):
