@@ -38,26 +38,26 @@ class MazeValidator:
                 # Check if the cell is on the perimeter
                 if r == 0 or r == self.rows - 1 or c == 0 or c == self.cols - 1:
                     if self.maze[r][c] not in allowed:
-                        raise ValueError(f"Error: Invalid character '{self.maze[r][c]}' on perimeter at ({r}, {c})[cite: 40].")
+                        raise ValueError(f"Error: Invalid character '{self.maze[r][c]}' on perimeter at ({r}, {c}).")
 
     def start_end_presence_check(self):
-        """3) Both start and end must be present[cite: 42]."""
+        """3) Both start and end must be present."""
         flat_maze = [cell for row in self.maze for cell in row]
         if 'S' not in flat_maze:
-            raise ValueError("Error: Start ('S') not found in maze[cite: 42].")
+            raise ValueError("Error: Start ('S') not found in maze.")
         if 'E' not in flat_maze:
-            raise ValueError("Error: End ('E') not found in maze[cite: 42].")
+            raise ValueError("Error: End ('E') not found in maze.")
 
     def unitary_start_end_check(self):
-        """4) There must be exactly one start and one end[cite: 44]."""
+        """4) There must be exactly one start and one end."""
         flat_maze = [cell for row in self.maze for cell in row]
         if flat_maze.count('S') != 1:
-            raise ValueError("Error: There must be exactly one start ('S')[cite: 44].")
+            raise ValueError("Error: There must be exactly one start ('S').")
         if flat_maze.count('E') != 1:
-            raise ValueError("Error: There must be exactly one end ('E')[cite: 44].")
+            raise ValueError("Error: There must be exactly one end ('E').")
 
     def feasibility_check(self):
-        """5) Start and end must be on the perimeter."""
+        """5) Start and end must be on the maze perimeter."""
         for r in range(self.rows):
             for c in range(self.cols):
                 if self.maze[r][c] in ('S', 'E'):
@@ -66,7 +66,7 @@ class MazeValidator:
                         raise ValueError(f"Error: '{self.maze[r][c]}' must be on the perimeter.")
 
     def validate_all(self):
-        """Runs all checks in sequence as required."""
+        """Runs all checks in sequence."""
         self.load_maze()
         self.column_check()
         self.boundaries_check()
