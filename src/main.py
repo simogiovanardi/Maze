@@ -1,6 +1,8 @@
 import os
 import sys
+import time
 from maze_validation import MazeValidator
+from maze_logic import MazeSimulator
 
 def main():
     # Define the path to the required maze.json file
@@ -25,10 +27,14 @@ def main():
 
     # If we reach here, validation was successful.
     # Start the simulation phase.
-    run_simulation(maze_data)
+    # run_simulation(maze_data)
 
-def run_simulation(maze):
-    """simulation logic"""
+    time.sleep(3)
+    print("\n--- Starting Simulation ---")
+    simulator = MazeSimulator(maze_data)
+    simulator.start_simulation()
+
+
 
 
 if __name__ == "__main__":
