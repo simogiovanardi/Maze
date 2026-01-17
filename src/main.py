@@ -4,6 +4,7 @@ import time
 from maze_validation import MazeValidator
 from maze_logic import MazeSimulator
 
+
 def main():
     # Define the path to the required maze.json file
     maze_file = "maze.json"
@@ -13,8 +14,8 @@ def main():
     validator = MazeValidator(maze_file)
     
     try:
-        # Perform all mandatory checks
-        # This will raise a ValueError if errors are present
+        # Perform all mandatory checks for the maze
+        # check for file existence, format, boundaries, start/end presence and uniqueness, feasibility
         maze_data = validator.validate_all()
         
     except (FileNotFoundError, ValueError) as e:
@@ -23,11 +24,10 @@ def main():
         sys.exit(1)
     except Exception as e:
         print(f"AN UNEXPECTED ERROR OCCURRED: {e}")
-        sys.exit(1)
+        sys.exit(1) # a general unexpected error occurred
 
     # If we reach here, validation was successful.
-    # Start the simulation phase.
-    # run_simulation(maze_data)
+    # Now the simulation phase starts.
 
     time.sleep(3)
     print("\n--- Starting Simulation ---")

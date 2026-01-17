@@ -44,10 +44,10 @@ class MazeSimulator:
         self.print_maze()
         time.sleep(1)
 
-    def __get_move_coordinates(self, direction):
+    def get_move_coordinates(self, direction):
         """Logic to find the next step (right side) based on current direction of the person."""
         r, c = self.person_pos
-        if direction == 0: return r - 1, c # if person direction is North
+        if direction == 0: return r - 1, c # next cell, if person direction is North
         if direction == 1: return r, c + 1 # East
         if direction == 2: return r + 1, c # South
         if direction == 3: return r, c - 1 # West
@@ -74,7 +74,7 @@ class MazeSimulator:
         ]
 
         for d in priorities:
-            new_r, new_c = self.__get_move_coordinates(d)
+            new_r, new_c = self.get_move_coordinates(d)
             # Check if move is valid (not a wall 'X')
             if 0 <= new_r < self.rows and 0 <= new_c < self.cols:
                 if self.maze[new_r][new_c] != 'X':
@@ -104,7 +104,7 @@ class MazeSimulator:
             time.sleep(1)
 
     def start_simulation(self):
-        """Main loop for the simulation."""
+        """Main loop for the entire simulation."""
         self.first_step()
         while self.is_running:
             self.run_turn()
